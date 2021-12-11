@@ -1,0 +1,48 @@
+.logo,
+.border-gray-custom {
+    border-color: rgb(227, 227, 227);
+}
+
+.logo-image {
+    height: 6vh;
+}
+
+.btn-menu:focus {
+    box-shadow: none!important;
+}
+
+.dropdown-menu-custom {
+    border: none!important;
+    display: block!important;
+    position: relative!important;
+    top: 0!important;
+    height: 100vh;
+}
+
+.menu,
+.body-content {
+    margin: 0!important;
+    padding-right: 0!important;
+    padding-left: 0!important;
+}
+
+ul {
+    width: 100%!important;
+    padding: 0!important;
+}
+
+.dropdown-item:active {
+    background-color: transparent!important;
+    color: #212529!important;
+}
+
+.dashboard-wrapper {
+    border: 1px solid #e3e3e3;
+    border-radius: 20px;
+    box-shadow: -1px 0px 13px -1px rgba(0, 0, 0, 0.47);
+    flex-wrap: wrap;
+}
+
+.content {
+    padding-top: 2rem;
+}
