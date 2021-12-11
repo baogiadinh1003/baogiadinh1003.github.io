@@ -64,15 +64,15 @@
                 <div class="pitch-container m-2 p-2 position-relative justify-content-center row d-none">
                     <div class="pitch-wrapper d-flex w-100 justify-content-center">
                         <div class="content w-100 d-flex justify-content-center">
-                            Bảng thống kê sân theo 
+                            Bảng thống kê theo 
                             <select id="selectPitch2" class="form-select ml-1" aria-label="Default select example">
                                 <option selected value="avgTotalPitchPerOwner">Tổng số sân mỗi người sở hữu nhiều nhất, ít nhất</option>
-                                <option value="avgTimeRentPitch">Số giờ trung bình, cao nhất, thấp nhất mỗi lần thuê sân</option>
+                                <option value="avgTimeRentPitch">Giờ được thuê sân</option>
                             </select>
                         </div>
                         <div class="chart-container" style="position: relative; height:50vh; width:70%">
                             <canvas id="chartAvgTotalPitchPerOwner" height="140"></canvas>
-                            <canvas id="chartAvgTimeRentPitch" height="140"></canvas>
+                            <canvas id="chartAvgTimeRentPitch" class="d-none mt-2" height="100"></canvas>
                         </div>
                     </div>
                 </div>

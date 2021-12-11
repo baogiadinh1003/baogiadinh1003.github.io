@@ -1,7 +1,14 @@
 var dataRenter;
 var dataOwner;
+var statusChart1 = false;
+var statusChart2 = false;
+var statusChart3 = false;
+var statusChart4 = false;
+var statusChart5 = false;
 var dataPitch;
 var dataAvgTotalPitchPerOwner;
+var dataAvgTimeRentPitch;
+
 $(document).ready(function() {
     // menu
     loadAvgTotalPitchPerOwner();
@@ -52,11 +59,28 @@ $(document).ready(function() {
         $(".pitch-container").addClass('d-none');
         $(".pitch-container").removeClass('d-flex');
     });
+
+    $('#selectPitch2').change(function() {
+        if ($("#selectPitch2").val() == 'avgTotalPitchPerOwner') {
+            $("#chartAvgTimeRentPitch").addClass('d-none');
+            $("#chartAvgTotalPitchPerOwner").removeClass('d-none');
+            if (dataAvgTotalPitchPerOwner === null || dataAvgTotalPitchPerOwner === undefined) {
+                loadAvgTotalPitchPerOwner();
+            }
+        }
+        if ($("#selectPitch2").val() == 'avgTimeRentPitch') {
+            $("#chartAvgTotalPitchPerOwner").addClass('d-none');
+            $("#chartAvgTimeRentPitch").removeClass('d-none');
+            if (dataAvgTimeRentPitch === null || dataAvgTimeRentPitch === undefined) {
+                loadAvgTimeRentPitch();
+            }
+        }
+    });
 });
 
 async function loadAccountData() {
     await $.ajax({
-        method: "GET",
+        type: "GET",
         url: "https://we-sports-sv.herokuapp.com/v1/renter/list",
         contentType: "application/json",
         success: function(result) {
@@ -66,7 +90,7 @@ async function loadAccountData() {
     })
 
     await $.ajax({
-        method: "GET",
+        type: "GET",
         url: "https://we-sports-sv.herokuapp.com/v1/owner/list",
         contentType: "application/json",
         success: function(result) {
@@ -76,46 +100,48 @@ async function loadAccountData() {
     })
     var countRenter = dataRenter.length;
     var countOwner = dataOwner.length;
-    var ctx = document.getElementById('chart').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Tổng', 'Người thuê', 'Người cho thuê'],
-            datasets: [{
-                label: 'Số lượng',
-                data: [Number(countRenter) + Number(countOwner), countRenter, countOwner],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                },
-                title: {
-                    display: true,
-                    text: 'Thống kê người dùng',
-                    position: 'bottom'
+    if (statusChart1 === false) {
+        var ctx = document.getElementById('chart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Tổng', 'Người thuê', 'Người cho thuê'],
+                datasets: [{
+                    label: 'Số lượng',
+                    data: [Number(countRenter) + Number(countOwner), countRenter, countOwner],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Thống kê người dùng',
+                        position: 'bottom'
+                    }
                 }
-            }
 
-        }
-    });
+            }
+        });
+        statusChart1 = true;
+    }
 }
 
 async function loadPitchDataCity() {
-
     await $.ajax({
-        method: "POST",
+        type: "POST",
         url: "https://we-sports-sv.herokuapp.com/v1/pitch/list",
         contentType: "application/json",
         success: function(result) {
@@ -148,46 +174,50 @@ async function loadPitchDataCity() {
         countPitch.push(count);
     }
 
-    var canvas = document.getElementById('chartPitch');
-    var ctx = canvas.getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: addressFilter,
-            datasets: [{
-                label: 'Số lượng',
-                data: countPitch,
-                backgroundColor: [
-                    'rgba(79, 192, 192, 0.2)',
-                    'rgba(255, 203, 98, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(79, 192, 192, 1)',
-                    'rgba(255, 203, 98, 1)',
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                },
-                title: {
-                    display: true,
-                    text: 'Thống kê sân theo tỉnh, thành phố',
-                    position: 'bottom'
+    if (statusChart2 === false) {
+        var canvas = document.getElementById('chartPitch');
+        var ctx = canvas.getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: addressFilter,
+                datasets: [{
+                    label: 'Số lượng',
+                    data: countPitch,
+                    backgroundColor: [
+                        'rgba(79, 192, 192, 0.2)',
+                        'rgba(255, 203, 98, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(79, 192, 192, 1)',
+                        'rgba(255, 203, 98, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Thống kê sân theo tỉnh, thành phố',
+                        position: 'bottom'
+                    }
                 }
-            }
 
-        }
-    });
+            }
+        });
+        statusChart2 = true;
+    }
+
 }
 
 async function loadPitchDataAvgPrice() {
     await $.ajax({
-        method: "POST",
+        type: "POST",
         url: "https://we-sports-sv.herokuapp.com/v1/pitch/list",
         contentType: "application/json",
         success: function(result) {
@@ -225,50 +255,54 @@ async function loadPitchDataAvgPrice() {
         }
     }
 
-    var canvas = document.getElementById('chartPitchAvg');
-    var ctx = canvas.getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Sân trên giá trung bình', 'Sân dưới giá trung bình', 'Sân giá trung bình'],
-            datasets: [{
-                label: 'Số lượng',
-                data: [overAvg, underAvg, isAvg],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(79, 192, 192, 0.2)',
-                    'rgba(255, 203, 98, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(79, 192, 192, 1)',
-                    'rgba(255, 203, 98, 1)',
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                },
-                title: {
-                    display: true,
-                    text: `Thống kê sân theo giá trung bình (${avgPrice})`,
-                    position: 'bottom'
+    if (statusChart3 === false) {
+        var canvas = document.getElementById('chartPitchAvg');
+        var ctx = canvas.getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Sân trên giá trung bình', 'Sân dưới giá trung bình', 'Sân giá trung bình'],
+                datasets: [{
+                    label: 'Số lượng',
+                    data: [overAvg, underAvg, isAvg],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(79, 192, 192, 0.2)',
+                        'rgba(255, 203, 98, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(79, 192, 192, 1)',
+                        'rgba(255, 203, 98, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    title: {
+                        display: true,
+                        text: `Thống kê sân theo giá trung bình (${avgPrice})`,
+                        position: 'bottom'
+                    }
                 }
-            }
 
-        }
-    });
+            }
+        });
+        statusChart3 = true;
+    }
+
 }
 
 async function loadAvgTotalPitchPerOwner() {
     await $.ajax({
-        method: "POST",
+        type: "POST",
         url: "https://we-sports-sv.herokuapp.com/v1/pitch/list",
         contentType: "application/json",
         dataType: 'json',
@@ -295,7 +329,7 @@ async function loadAvgTotalPitchPerOwner() {
         const element = ownersId[index];
         data = { pitchOwner: element };
         await $.ajax({
-            method: "POST",
+            type: "POST",
             url: "https://we-sports-sv.herokuapp.com/v1/pitch/listbyowner",
             data: JSON.stringify(data),
             contentType: "application/json",
@@ -312,38 +346,125 @@ async function loadAvgTotalPitchPerOwner() {
     var min = Math.min.apply(Math, countPitch);
     var indexOfMax = countPitch.indexOf(max);
     var indexOfMin = countPitch.indexOf(min);
-    var ctx = document.getElementById('chartAvgTotalPitchPerOwner').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: [ownersName[0], "Người nhiều sân nhất: " + ownersName[indexOfMax], "Người ít sân nhất: " + ownersName[indexOfMin]],
-            datasets: [{
-                label: 'Số lượng sân',
-                data: [countPitch[0], countPitch[indexOfMax], countPitch[indexOfMin]],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                },
-                title: {
-                    display: true,
-                    text: 'Thống kê sân',
-                    position: 'bottom'
-                }
-            }
 
+    if (statusChart4 === false) {
+        var ctx = document.getElementById('chartAvgTotalPitchPerOwner').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [ownersName[0], "Người nhiều sân nhất: " + ownersName[indexOfMax], "Người ít sân nhất: " + ownersName[indexOfMin]],
+                datasets: [{
+                    label: 'Số lượng sân',
+                    data: [countPitch[0], countPitch[indexOfMax], countPitch[indexOfMin]],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Thống kê sân',
+                        position: 'bottom'
+                    }
+                }
+
+            }
+        });
+        statusChart4 = true;
+    }
+}
+
+async function loadAvgTimeRentPitch() {
+    await $.ajax({
+        type: "GET",
+        url: "https://we-sports-sv.herokuapp.com/v1/bill/list",
+        contentType: "application/json",
+        success: function(result) {
+            var dum = result;
+            dataAvgTotalPitchPerOwner = dum.data;
         }
-    });
+    })
+
+    var timeRent = [];
+    var countTime = [];
+    for (let index = 0; index < dataAvgTotalPitchPerOwner.length; index++) {
+        const element = dataAvgTotalPitchPerOwner[index];
+        for (let j = 0; j < element.timeRent.length; j++) {
+            const elm = element.timeRent[j];
+            var text;
+            if (elm.substring(0, 2).includes(':')) {
+                text = elm.replace(elm.substring(0, 1), 0 + elm.substring(0, 1))
+            } else {
+                text = elm;
+            }
+            if (timeRent.indexOf(text) !== -1) {
+                countTime[timeRent.indexOf(text)] = countTime[timeRent.indexOf(text)] + 1;
+                continue;
+            }
+            timeRent.push(text);
+            countTime.push(1);
+        }
+    }
+
+    if (statusChart5 === false) {
+        var ctx = document.getElementById('chartAvgTimeRentPitch').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: timeRent,
+                datasets: [{
+                    label: 'Số lượt thuê',
+                    data: countTime,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(132, 220, 198, 0.2)',
+                        'rgba(165, 255, 214, 0.2)',
+                        'rgba(255, 166, 158, 0.2)',
+                        'rgba(255, 104, 107, 0.2)',
+                        'rgba(232, 141, 103, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(132, 220, 198, 1)',
+                        'rgba(165, 255, 214, 1)',
+                        'rgba(255, 166, 158, 1)',
+                        'rgba(255, 104, 107, 1)',
+                        'rgba(232, 141, 103, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                aspectRatio: 2.2,
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Thống kê giờ trong ngày được thuê',
+                        position: 'bottom'
+                    }
+                }
+
+            }
+        });
+        statusChart5 = true;
+    }
+
 }
