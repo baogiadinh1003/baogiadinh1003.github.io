@@ -105,9 +105,6 @@ async function loadPitchDataCity() {
     var countPitch = [dataPitch.length];
     for (i = 0; i < dataPitch.length; i++) {
         var dumPitch = dataPitch[i];
-
-        console.log(dumPitch.pitchName);
-        console.log(dumPitch.pitchAddress.addressCity);
         var addressCode = dumPitch.pitchAddress.addressCity.code;
         if (addressCodeFilter.indexOf(addressCode) !== -1) {
             continue;
@@ -185,6 +182,7 @@ async function loadPitchDataAvgPrice() {
     }
 
     avgPrice = total / countPitch;
+    avgPrice = Math.round(avgPrice)
 
     var overAvg = 0;
     var underAvg = 0;
@@ -192,9 +190,6 @@ async function loadPitchDataAvgPrice() {
     for (i = 0; i < dataPitch.length; i++) {
         var dumPitch = dataPitch[i];
         var avgPitch = (Number(dumPitch.minPrice) + Number(dumPitch.maxPrice)) / 2
-        console.log(Number(avgPrice) > Number(avgPitch));
-        console.log(Number(avgPrice) == Number(avgPitch));
-        console.log(Number(avgPrice) < Number(avgPitch));
         if (Number(avgPrice) > Number(avgPitch)) {
             underAvg++;
         }
@@ -205,7 +200,7 @@ async function loadPitchDataAvgPrice() {
             overAvg++;
         }
     }
-    console.log(overAvg);
+
     var canvas = document.getElementById('chartPitchAvg');
     var ctx = canvas.getContext('2d');
     var myChart = new Chart(ctx, {
