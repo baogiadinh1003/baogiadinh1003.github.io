@@ -16,7 +16,7 @@
     display: block!important;
     position: relative!important;
     top: 0!important;
-    height: 100vh;
+    height: 93vh;
 }
 
 .menu,
@@ -31,12 +31,17 @@ ul {
     padding: 0!important;
 }
 
+ul>li>a {
+    height: 5vh!important;
+}
+
 .dropdown-item:active {
     background-color: transparent!important;
     color: #212529!important;
 }
 
-.dashboard-wrapper {
+.dashboard-wrapper,
+.pitch-wrapper {
     border: 1px solid #e3e3e3;
     border-radius: 20px;
     box-shadow: -1px 0px 13px -1px rgba(0, 0, 0, 0.47);
@@ -45,4 +50,9 @@ ul {
 
 .content {
     padding-top: 2rem;
+}
+
+.body-content {
+    height: 93vh!important;
+    overflow-y: scroll;
 }

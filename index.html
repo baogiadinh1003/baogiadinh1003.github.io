@@ -32,9 +32,9 @@
         <div class="body w-100 h-100 row ml-0 ">
             <div class="menu border border-gray-custom col-2 ">
                 <ul class="dropdown-menu dropdown-menu-custom">
-                    <li class="border-bottom"><a id="dashboard" class="dropdown-item">Tổng quát</a></li>
-                    <li class="border-bottom"><a id="pitch" class="dropdown-item">Sân</a></li>
-                    <li class="border-bottom"><a id="account-list" class="dropdown-item">Người dùng</a></li>
+                    <li class="border-bottom"><a id="dashboard" class="dropdown-item d-flex align-items-center">Tổng quát</a></li>
+                    <li class="border-bottom"><a id="pitch" class="dropdown-item d-flex align-items-center">Sân</a></li>
+                    <li class="border-bottom"><a id="accountList" class="dropdown-item d-flex align-items-center">Người dùng</a></li>
                 </ul>
             </div>
             <div class="body-content border-top border-gray-custom col-10">
@@ -61,8 +61,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="pitch-wrapper p-2"></div>
-                <div class="account-wrapper p-2"></div>
+                <div class="pitch-container m-2 p-2 position-relative justify-content-center row d-none">
+                    <div class="pitch-wrapper d-flex w-100 justify-content-center">
+                        <div class="content w-100 d-flex justify-content-center">
+                            Bảng thống kê sân theo 
+                            <select id="selectPitch2" class="form-select ml-1" aria-label="Default select example">
+                                <option selected value="avgTotalPitchPerOwner">Tổng số sân mỗi người sở hữu nhiều nhất, ít nhất</option>
+                                <option value="avgTimeRentPitch">Số giờ trung bình, cao nhất, thấp nhất mỗi lần thuê sân</option>
+                            </select>
+                        </div>
+                        <div class="chart-container" style="position: relative; height:50vh; width:70%">
+                            <canvas id="chartAvgTotalPitchPerOwner" height="140"></canvas>
+                            <canvas id="chartAvgTimeRentPitch" height="140"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="account-container m-2 p-2 position-relative justify-content-center row d-none"></div>
             </div>
         </div>
     </div>
