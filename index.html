@@ -2,92 +2,41 @@
 <html lang="en">
 
 <head>
-    <title>We sport</title>
+    <title>Title</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" href="./images/logo.svg" type="image/icon type">
-    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/login.css">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
-    <div class="main">
-        <div class="header">
-            <div class="logo col-2 border-right d-flex align-items-center justify-content-center">
-                <div class="container d-flex align-items-center justify-content-center">
-                    <img src="./images/logo.svg" class="logo-image">
-                    <h3 class="ml-2 mr-2">WeSports</h3>
-                    <button class="btn btn-menu" data-bs-toggle="dropdown" aria-expanded="false" id="dropDownMenu">
-                        <svg xmlns="http://www.w3.org/2000/svg " width="20 " height="20 " fill="currentColor "
-                        class="bi bi-list " viewBox="0 0 16 16 ">
-                        <path fill-rule="evenodd "
-                            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z " />
-                    </svg>
-                </div>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <!-- Tabs Titles -->
+
+            <!-- Icon -->
+            <div class="fadeIn first">
+                <img src="./images/logo.svg" style="height: 15vh;" id="icon" alt="Logo" />
             </div>
-            <div class="search col-10 "></div>
-        </div>
-        <div class="body w-100 h-100 row ml-0 ">
-            <div class="menu border border-gray-custom col-2 ">
-                <ul class="dropdown-menu dropdown-menu-custom">
-                    <li class="border-bottom"><a id="dashboard" class="dropdown-item d-flex align-items-center">Tổng quát</a></li>
-                    <li class="border-bottom"><a id="pitch" class="dropdown-item d-flex align-items-center">Sân</a></li>
-                    <li class="border-bottom"><a id="accountList" class="dropdown-item d-flex align-items-center">Người dùng</a></li>
-                </ul>
+
+            <!-- Login Form -->
+            <div class="container d-flex justify-content-center flex-wrap p-2">
+                <input type="text" id="username" class="fadeIn second w-100" name="login" placeholder="Username">
+                <input type="password" id="password" class="fadeIn third w-100" name="login" placeholder="Password">
+                <button type="button" name="" id="btnLogin" class="btn btn-primary btn-lg btn-block">Log In</button>
             </div>
-            <div class="body-content border-top border-gray-custom col-10">
-                <div class="dashboard-container m-2 p-2 d-flex position-relative justify-content-center row">
-                    <div class="dashboard-wrapper d-flex w-100 justify-content-center">
-                        <div class="content w-100 d-flex justify-content-center">
-                            Bảng giới thiệu chung của người dùng
-                        </div>
-                        <div class="chart-container" style="position: relative; height:50vh; width:70%">
-                            <canvas id="chart" height="140"></canvas>
-                        </div>
-                    </div>
-                    <div class="dashboard-wrapper d-flex w-100 justify-content-center mt-3">
-                        <div class="content w-100 d-flex justify-content-center">
-                            Bảng giới thiệu chung của sân tính theo 
-                            <select id="selectPitch" class="form-select ml-1" aria-label="Default select example">
-                                <option selected value="city">Thành phố</option>
-                                <option value="avgPrice">Giá trung bình</option>
-                              </select>
-                        </div>
-                        <div class="chart-container" style="position: relative; height:50vh; width:70%">
-                            <canvas id="chartPitch" height="140"></canvas>
-                            <canvas id="chartPitchAvg" class="d-none" height="140"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="pitch-container m-2 p-2 position-relative justify-content-center row d-none">
-                    <div class="pitch-wrapper d-flex w-100 justify-content-center">
-                        <div class="content w-100 d-flex justify-content-center">
-                            Bảng thống kê theo 
-                            <select id="selectPitch2" class="form-select ml-1" aria-label="Default select example">
-                                <option selected value="avgTotalPitchPerOwner">Tổng số sân mỗi người sở hữu nhiều nhất, ít nhất</option>
-                                <option value="avgTimeRentPitch">Giờ được thuê sân</option>
-                            </select>
-                        </div>
-                        <div class="chart-container" style="position: relative; height:50vh; width:70%">
-                            <canvas id="chartAvgTotalPitchPerOwner" height="140"></canvas>
-                            <canvas id="chartAvgTimeRentPitch" class="d-none mt-2" height="100"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="account-container m-2 p-2 position-relative justify-content-center row d-none"></div>
-            </div>
+
         </div>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js " integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1 " crossorigin="anonymous "></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js " integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM " crossorigin="anonymous "></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js" integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <script src="./js/main.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="./js/login.js"></script>
 </body>
 
 </html>
