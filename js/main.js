@@ -10,6 +10,9 @@ var dataAvgTotalPitchPerOwner;
 var dataAvgTimeRentPitch;
 
 $(document).ready(function() {
+    $("#logout").click(function(e) {
+        window.location.replace('./index.html');
+    });
     // menu
     loadAvgTotalPitchPerOwner();
     loadAccountData();

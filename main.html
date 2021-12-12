@@ -14,7 +14,7 @@
 
 <body>
     <div class="main">
-        <div class="header">
+        <div class="header d-flex">
             <div class="logo col-2 border-right d-flex align-items-center justify-content-center">
                 <div class="container d-flex align-items-center justify-content-center">
                     <img src="./images/logo.svg" class="logo-image">
@@ -25,9 +25,12 @@
                         <path fill-rule="evenodd "
                             d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z " />
                     </svg>
+                </button>
                 </div>
             </div>
-            <div class="search col-10 "></div>
+            <div class="search col-10 d-flex justify-content-end align-items-center">
+                <button type="button" id="logout" class="btn btn-secondary">Logout</button>
+            </div>
         </div>
         <div class="body w-100 h-100 row ml-0 ">
             <div class="menu border border-gray-custom col-2 ">
@@ -49,7 +52,7 @@
                     </div>
                     <div class="dashboard-wrapper d-flex w-100 justify-content-center mt-3">
                         <div class="content w-100 d-flex justify-content-center">
-                            Bảng giới thiệu chung của sân tính theo 
+                            Bảng giới thiệu chung của sân tính theo
                             <select id="selectPitch" class="form-select ml-1" aria-label="Default select example">
                                 <option selected value="city">Thành phố</option>
                                 <option value="avgPrice">Giá trung bình</option>
@@ -64,7 +67,7 @@
                 <div class="pitch-container m-2 p-2 position-relative justify-content-center row d-none">
                     <div class="pitch-wrapper d-flex w-100 justify-content-center">
                         <div class="content w-100 d-flex justify-content-center">
-                            Bảng thống kê theo 
+                            Bảng thống kê theo
                             <select id="selectPitch2" class="form-select ml-1" aria-label="Default select example">
                                 <option selected value="avgTotalPitchPerOwner">Tổng số sân mỗi người sở hữu nhiều nhất, ít nhất</option>
                                 <option value="avgTimeRentPitch">Giờ được thuê sân</option>
