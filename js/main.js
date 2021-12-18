@@ -8,10 +8,17 @@ var statusChart5 = false;
 var dataPitch;
 var dataAvgTotalPitchPerOwner;
 var dataAvgTimeRentPitch;
+var dataReport;
+var table;
 
 $(document).ready(function() {
     $("#logout").click(function(e) {
         window.location.replace('./index.html');
+    });
+    table = $('#accountReport').DataTable({
+        searching: false,
+        ordering: false,
+        lengthChange: false
     });
     // menu
     loadAvgTotalPitchPerOwner();
@@ -61,6 +68,10 @@ $(document).ready(function() {
         $(".dashboard-container").removeClass('d-flex');
         $(".pitch-container").addClass('d-none');
         $(".pitch-container").removeClass('d-flex');
+
+        if (dataReport === null || dataReport === undefined) {
+            loadAllReport();
+        }
     });
 
     $('#selectPitch2').change(function() {
@@ -470,4 +481,77 @@ async function loadAvgTimeRentPitch() {
         statusChart5 = true;
     }
 
+}
+
+async function loadAllReport() {
+    await $.ajax({
+        type: "GET",
+        url: "https://we-sports-sv.herokuapp.com/v1/report/list",
+        contentType: "application/json",
+        success: function(result) {
+            var dum = result;
+            dataReport = dum.data;
+        }
+    })
+    for (let index = 0; index < dataReport.length; index++) {
+        const element = dataReport[index];
+        let accountReported = element.accountReported._id;
+        let reporterList = element.reporter;
+        let reasonList = element.reason;
+        let reporters = "";
+        let reasons = "";
+        for (let i = 0; i < reporterList.length; i++) {
+            const rpter = reporterList[i];
+            if (i == 0) {
+                reporters += rpter._id;
+            } else {
+                reporters += "\n" + rpter._id;
+            }
+        }
+        for (let i = 0; i < reasonList.length; i++) {
+            const reas = reasonList[i];
+            if (i == 0) {
+                reasons += reas;
+            } else {
+                reasons += "\n" + reas;
+            }
+        }
+
+        table.row.add([
+            accountReported,
+            reporters,
+            reasons,
+            '<div class=\"d-flex\"><button type=\"button\" class=\"btn btn-success btn-action\">Ban</button> <button type=\"button\" class=\"btn btn-danger btn-action ml-2\">Remove</button></div>'
+        ]).draw(false);
+    }
+
+    $(".btn-action").click(function(e) {
+        let id = $(this).closest('tr')[0].children[0].textContent;
+        if (e.target.className.includes('success')) {
+            banAccount(id);
+        }
+        if (e.target.className.includes('danger')) {
+
+        }
+    });
+}
+
+async function banAccount(param) {
+    let dataSend = { _id: param };
+    await $.ajax({
+        type: "POST",
+        url: "https://we-sports-sv.herokuapp.com/v1/report/delete",
+        data: JSON.stringify(dataSend),
+        contentType: "application/json",
+        success: function(result) {
+            if (result.status == 1) {
+                Swal.fire({
+                    icon: 'success',
+                    title: `Account ${param} has been ban`,
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+            }
+        }
+    })
 }

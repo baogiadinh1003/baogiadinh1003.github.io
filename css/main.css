@@ -56,3 +56,56 @@ ul>li>a {
     height: 93vh!important;
     overflow-y: scroll;
 }
+
+#accountReport_wrapper {
+    display: flex;
+    width: 100%!important;
+    flex-wrap: wrap;
+}
+
+.paginate_button {
+    float: right;
+    padding: 0.5rem;
+}
+
+#accountReport_paginate {
+    display: flex;
+    width: 50%;
+    justify-content: right;
+}
+
+#accountReport_info {
+    width: 50%;
+    display: flex;
+    padding-top: 0.5rem;
+}
+
+#accountReport_length {
+    width: 100%;
+}
+
+.reason-col {
+    width: 55rem;
+}
+
+.reporter-col {
+    width: 12rem;
+}
+
+.account-reporter-col {
+    width: 12rem;
+}
+
+.action-col {
+    width: 5rem;
+}
+
+table td,
+table th {
+    vertical-align: middle!important;
+}
+
+table tbody tr td:nth-child(3),
+table tbody tr td:nth-child(3) {
+    white-space: pre-line;
+}
