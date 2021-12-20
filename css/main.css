@@ -57,7 +57,8 @@ ul>li>a {
     overflow-y: scroll;
 }
 
-#accountReport_wrapper {
+#accountReport_wrapper,
+#blacklist_wrapper {
     display: flex;
     width: 100%!important;
     flex-wrap: wrap;
@@ -68,19 +69,22 @@ ul>li>a {
     padding: 0.5rem;
 }
 
-#accountReport_paginate {
+#accountReport_paginate,
+#blacklist_paginate {
     display: flex;
     width: 50%;
     justify-content: right;
 }
 
-#accountReport_info {
+#accountReport_info,
+#blacklist_info {
     width: 50%;
     display: flex;
     padding-top: 0.5rem;
 }
 
-#accountReport_length {
+#accountReport_length,
+#blacklist_length {
     width: 100%;
 }
 

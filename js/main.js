@@ -10,12 +10,20 @@ var dataAvgTotalPitchPerOwner;
 var dataAvgTimeRentPitch;
 var dataReport;
 var table;
+var table2;
 
 $(document).ready(function() {
     $("#logout").click(function(e) {
         window.location.replace('./index.html');
     });
+    getAdminProfit();
     table = $('#accountReport').DataTable({
+        searching: false,
+        ordering: false,
+        lengthChange: false
+    });
+
+    table2 = $('#blacklist').DataTable({
         searching: false,
         ordering: false,
         lengthChange: false
@@ -531,7 +539,8 @@ async function loadAllReport() {
             banAccount(id);
         }
         if (e.target.className.includes('danger')) {
-
+            removeReport(id);
+            console.log('aaa');
         }
     });
 }
@@ -552,6 +561,68 @@ async function banAccount(param) {
                     timer: 2000
                 })
             }
+        }
+    })
+}
+
+async function removeReport(param) {
+    let dataSend = { _id: param };
+    await $.ajax({
+        type: "POST",
+        url: "https://we-sports-sv.herokuapp.com/v1/report/remove",
+        data: JSON.stringify(dataSend),
+        contentType: "application/json",
+        success: function(result) {
+            if (result.status == 1) {
+                Swal.fire({
+                    icon: 'success',
+                    title: `Report ${param} has been remove`,
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then(() => {
+                    location.reload();
+                })
+            }
+        }
+    })
+}
+
+async function getBlackList(param) {
+    await $.ajax({
+        type: "GET",
+        url: "https://we-sports-sv.herokuapp.com/v1/blacklist/list",
+        contentType: "application/json",
+        success: function(result) {
+            if (result.status == 1) {
+                Swal.fire({
+                    icon: 'success',
+                    title: `Report ${param} has been remove`,
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then(() => {
+                    location.reload();
+                })
+            }
+        }
+    })
+
+    for (let index = 0; index < dataReport.length; index++) {
+        const element = dataReport[index];
+        let accountReported = element.accountId;
+
+        table2.row.add([
+            accountReported
+        ]).draw(false);
+    }
+}
+
+async function getAdminProfit() {
+    await $.ajax({
+        type: "GET",
+        url: "https://we-sports-sv.herokuapp.com/v1/profit/admin",
+        contentType: "application/json",
+        success: function(result) {
+            $("#doanhThu").text(`Tổng doanh thu từ app tính đến hiện tại là: ${Math.round(result.data)} vnd`);
         }
     })
 }
