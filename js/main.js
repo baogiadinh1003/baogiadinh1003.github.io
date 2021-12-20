@@ -9,6 +9,7 @@ var dataPitch;
 var dataAvgTotalPitchPerOwner;
 var dataAvgTimeRentPitch;
 var dataReport;
+var dataBlacklist;
 var table;
 var table2;
 
@@ -79,6 +80,7 @@ $(document).ready(function() {
 
         if (dataReport === null || dataReport === undefined) {
             loadAllReport();
+            getBlackList();
         }
     });
 
@@ -593,21 +595,13 @@ async function getBlackList(param) {
         url: "https://we-sports-sv.herokuapp.com/v1/blacklist/list",
         contentType: "application/json",
         success: function(result) {
-            if (result.status == 1) {
-                Swal.fire({
-                    icon: 'success',
-                    title: `Report ${param} has been remove`,
-                    showConfirmButton: false,
-                    timer: 2000
-                }).then(() => {
-                    location.reload();
-                })
-            }
+            var dum = result;
+            dataBlacklist = dum.data;
         }
     })
 
-    for (let index = 0; index < dataReport.length; index++) {
-        const element = dataReport[index];
+    for (let index = 0; index < dataBlacklist.length; index++) {
+        const element = dataBlacklist[index];
         let accountReported = element.accountId;
 
         table2.row.add([
